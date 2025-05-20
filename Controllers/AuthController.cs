@@ -20,11 +20,21 @@ namespace backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
+            try
+            {
+                if (string.IsNullOrEmpty(dto.Username) || string.IsNullOrEmpty(dto.Password))
+                    return BadRequest("El nombre de usuario y la contraseña son obligatorios.");
                 bool registered = await _authService.RegisterAsync(dto.Username, dto.Password);
-            if (!registered)
-                return BadRequest("El nombre de usuario ya está en uso.");
+                if (!registered)
+                    return BadRequest("El nombre de usuario ya está en uso.");
 
-            return Ok("Usuario registrado correctamente.");
+                return Ok("Usuario registrado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en registro: " + ex.Message);
+                return StatusCode(500, "Error interno en el servidor.");
+            }
         }
 
         [HttpPost("login")]
@@ -32,6 +42,9 @@ namespace backend.Controllers
         {
             try
             { 
+                
+                if (string.IsNullOrEmpty(dto.Username) || string.IsNullOrEmpty(dto.Password))
+                    return BadRequest("El nombre de usuario y la contraseña son obligatorios.");
                 var user = await _authService.AuthenticateAsync(dto.Username, dto.Password);
                 if (user == null)
                     return Unauthorized("Usuario o contraseña incorrectos.");

@@ -76,7 +76,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend",
         policy =>
         {
-            policy.AllowAnyOrigin()
+            policy.WithOrigins("https://notes-app-pi0t.onrender.com")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
@@ -94,7 +94,6 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication(); 
