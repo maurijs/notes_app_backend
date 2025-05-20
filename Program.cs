@@ -65,6 +65,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// This is just for debugging purposes, you can remove it later
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+Console.WriteLine("Cadena de conexión: " + connection); // Solo para depuración
 
 //Add DbContext for PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
