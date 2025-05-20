@@ -65,10 +65,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// This is just for debugging purposes, you can remove it later
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine("Cadena de conexión: " + connection); // Solo para depuración
-
 //Add DbContext for PostgreSQL
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -89,12 +85,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 // Apply migrations at startup
-// Debugging purposes, remove it later
-using (var scope = app.Services.CreateScope())
+/*using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-}
+}*/
 
 
 if (app.Environment.IsDevelopment())
