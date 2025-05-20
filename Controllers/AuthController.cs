@@ -18,7 +18,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] LoginDto dto)
+        public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             bool registered = await _authService.RegisterAsync(dto.Username, dto.Password);
             if (!registered)
@@ -28,7 +28,7 @@ namespace backend.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] RegisterDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
             var user = await _authService.AuthenticateAsync(dto.Username, dto.Password);
             if (user == null)
