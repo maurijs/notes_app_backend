@@ -20,7 +20,7 @@ namespace backend.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
-            bool registered = await _authService.RegisterAsync(dto.Username, dto.Password);
+                bool registered = await _authService.RegisterAsync(dto.Username, dto.Password);
             if (!registered)
                 return BadRequest("El nombre de usuario ya está en uso.");
 
@@ -30,12 +30,19 @@ namespace backend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            var user = await _authService.AuthenticateAsync(dto.Username, dto.Password);
-            if (user == null)
-                return Unauthorized("Usuario o contraseña incorrectos.");
+            try
+            { 
+                var user = await _authService.AuthenticateAsync(dto.Username, dto.Password);
+                if (user == null)
+                    return Unauthorized("Usuario o contraseña incorrectos.");
 
-            var token = _authService.GenerateJwtToken(user);
-            return Ok(new { token });
+                var token = _authService.GenerateJwtToken(user);
+                return Ok(new { token });
+            } catch (Exception ex)
+            {
+                Console.WriteLine("Error en login: " + ex.Message);
+                return StatusCode(500, "Error interno en el servidor.");
+            }
         }
     }
 
