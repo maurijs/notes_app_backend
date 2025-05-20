@@ -88,6 +88,14 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+// Apply migrations at startup
+// Debugging purposes, remove it later
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 
 if (app.Environment.IsDevelopment())
 {
