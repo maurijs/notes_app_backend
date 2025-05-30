@@ -13,7 +13,11 @@ Notes Manager es una aplicación web moderna que permite a los usuarios registra
 
 ## Arquitectura y estructura
 -- Frontend como SPA (Single Page Application) usando React + Vite + TypeScript, comunicándose con el backend vía API RESTful usando Axios.
+
 -- Backend desacoplado, estructurado en capas (Controllers, Services, Repositories), siguiendo buenas prácticas y principios SOLID.
+
 -- Persistencia de datos en PostgreSQL con Entity Framework Core 8 como ORM.
+
 -- Gestión de autenticación y autorización basada en JSON Web Tokens (JWT).
+
 -- Seguridad reforzada con BCrypt para el almacenamiento seguro de contraseñas.
