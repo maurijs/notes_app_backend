@@ -1,6 +1,8 @@
 # Notes Manager
 Notes Manager es una aplicación web moderna que permite a los usuarios registrados gestionar sus notas personales de forma eficiente.
 
+Deployed version: https://notes-app-pi0t.onrender.com
+
 ## Funcionalidades principales
 ✅ Registro e inicio de sesión de usuarios con autenticación JWT segura.
 📝 Crear, editar y eliminar notas.
